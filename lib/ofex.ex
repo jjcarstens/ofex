@@ -28,12 +28,6 @@ defmodule Ofex do
 
   defp parse_message_set("SIGNONMSGSRSV1", message_set), do: Signon.create(message_set)
   defp parse_message_set("BANKMSGSRSV1", message_set), do: BankAccount.create(message_set)
-  # defp parse_message_set(message_set) do
-  #   case xpath(message_set, ~x"name()"s) do
-  #     "SIGNONMSGSRSV1" -> {:test, 1}
-  #     "BANKMSGSRSV1" -> BankAccount.create(message_set)
-  #   end
-  # end
 
   # TODO: Add more strict checking here
   # TODO: Add support for QFX files as well
