@@ -1,6 +1,6 @@
 # ofex
 
-A simple parser for Open Financial Exchange (OFX) data
+A simple parser for Open Financial Exchange (OFX) data in elixir
 
 ## Installation
 
