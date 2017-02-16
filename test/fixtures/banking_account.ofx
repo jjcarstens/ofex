@@ -51,6 +51,15 @@
                         <NAME>BUYING ALL THE THINGS</NAME>
                         <MEMO>#YOLO</MEMO>
                     </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CHECK</TRNTYPE>
+                        <DTPOSTED>20170113120000</DTPOSTED>
+                        <DTUSER>20170113120000</DTUSER>
+                        <TRNAMT>-40.0</TRNAMT>
+                        <FITID>3113342346901135</FITID>
+                        <CHECKNUM>275</CHECKNUM>
+                        <NAME>CHECK 275 342857403598</NAME>
+                    </STMTTRN>
                 </BANKTRANLIST>
                 <LEDGERBAL>
                     <BALAMT>1000001.00</BALAMT>

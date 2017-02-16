@@ -19,23 +19,38 @@ defmodule OfexTest do
         transactions: [
           %{
             amount: -7.0,
+            check_number: "",
             fit_id: "4614806509201701231",
             generic_type: "DEBIT",
             memo: "This is where a memo goes",
             name: "This is where the name is",
             positive_amount: 7.0,
+            check_number: "",
             posted_date: ~D[2017-01-23],
             type: "DEBIT"
           },
           %{
             amount: 372.07,
+            check_number: "",
             fit_id: "4614806509201701201",
             generic_type: "CREDIT",
             memo: "#YOLO",
             name: "BUYING ALL THE THINGS",
             positive_amount: 372.07,
+            check_number: "",
             posted_date: ~D[2017-01-20],
             type: "CREDIT"
+          },
+          %{
+            amount: -40.0,
+            check_number: "275",
+            fit_id: "3113342346901135",
+            generic_type: "DEBIT",
+            memo: "",
+            name: "CHECK 275 342857403598",
+            positive_amount: 40.0,
+            posted_date: ~D[2017-01-13],
+            type: "CHECK"
           }
         ],
         type: "CHECKING"
@@ -66,31 +81,37 @@ defmodule OfexTest do
         transactions: [
           %{
             amount: 87.4,
+            check_number: "",
             fit_id: "4489153042781763450170106002711",
             generic_type: "CREDIT",
             memo: "",
             name: "ONLINE BANKING PAYMENT PAYPOINT",
             positive_amount: 87.4,
+            check_number: "",
             posted_date: ~D[2017-01-06],
             type: "CREDIT"
           },
           %{
             amount: -137.87,
+            check_number: "",
             fit_id: "448915304272642016122920161229002531",
             generic_type: "DEBIT",
             memo: "",
             name: "CRAZY FUN EVENT CENTER",
             positive_amount: 137.87,
+            check_number: "",
             posted_date: ~D[2016-12-29],
             type: "DEBIT"
           },
           %{
             amount: 105.51,
+            check_number: "",
             fit_id: "44891530427817642016120987561209002711",
             generic_type: "CREDIT",
             memo: "",
             name: "ONLINE BANKING PAYMENT PAYPOINT",
             positive_amount: 105.51,
+            check_number: "",
             posted_date: ~D[2016-12-09],
             type: "CREDIT"
           }

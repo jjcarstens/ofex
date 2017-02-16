@@ -12,6 +12,7 @@ defmodule Ofex.Transaction do
       fit_id: ~x"FITID/text()"s,
       name: ~x"NAME/text()"s,
       memo: ~x"MEMO/text()"s,
+      check_number: ~x"./CHECKNUM/text()"s
     )
   end
 
