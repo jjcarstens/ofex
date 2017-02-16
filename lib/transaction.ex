@@ -6,11 +6,11 @@ defmodule Ofex.Transaction do
     xpath(ofx_data, ~x".",
       type: ~x"TRNTYPE/text()"s,
       generic_type: ~x"TRNAMT/text()"s |> transform_by(&generic_type_from_amount/1),
-      posted_on: ~x"DTPOSTED/text()"s,
+      posted_date: ~x"DTPOSTED/text()"s |> transform_by(&string_to_date/1),
       amount: ~x"TRNAMT/text()"f,
       positive_amount: ~x"TRNAMT/text()"s |> transform_by(&string_to_float/1),
       fit_id: ~x"FITID/text()"s,
-      description: ~x"NAME/text()"s,
+      name: ~x"NAME/text()"s,
       memo: ~x"MEMO/text()"s,
     )
   end

@@ -15,7 +15,7 @@ defmodule Ofex.BankAccount do
                 transactions: ~x"./STMTRS/BANKTRANLIST/STMTTRN"l |> transform_by(&parse_transactions(&1)),
                 balance: ~x"./STMTRS/LEDGERBAL/BALAMT/text()"f,
                 positive_balance: ~x"./STMTRS/LEDGERBAL/BALAMT/text()"s |> transform_by(&string_to_float/1),
-                balance_date: ~x"./STMTRS/LEDGERBAL/DTASOF/text()"s,
+                balance_date: ~x"./STMTRS/LEDGERBAL/DTASOF/text()"s |> transform_by(&string_to_date/1),
               )
     {:bank_account, account}
   end

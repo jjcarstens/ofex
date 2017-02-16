@@ -6,7 +6,7 @@ defmodule Ofex.Mixfile do
       app: :ofex,
       name: "Ofex",
       description: "A simple parser for Open Financial Exchange (OFX) data in elixir",
-      version: "0.1.0",
+      version: "0.1.1",
       elixir: "~> 1.4",
       package: [
         maintainers: ["Jon Carstens"],
@@ -30,6 +30,7 @@ defmodule Ofex.Mixfile do
       {:credo, ">= 0.0.0", only: [:dev, :test]},
       {:ex_doc, "~> 0.14", only: :dev},
       {:sweet_xml, "~> 0.6"},
+      {:timex, "~> 3.0"},
     ]
   end
 end

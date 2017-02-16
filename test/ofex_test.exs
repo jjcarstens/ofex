@@ -9,7 +9,7 @@ defmodule OfexTest do
       bank_account: %{
         account_number: "00000000012345678910",
         balance: 1000001.0,
-        balance_date: "20170127120000",
+        balance_date: ~D[2017-01-27],
         currency: "USD",
         positive_balance: 1000001.0,
         request_id: "0",
@@ -19,22 +19,22 @@ defmodule OfexTest do
         transactions: [
           %{
             amount: -7.0,
-            description: "This is where the description is",
             fit_id: "4614806509201701231",
             generic_type: "DEBIT",
             memo: "This is where a memo goes",
+            name: "This is where the name is",
             positive_amount: 7.0,
-            posted_on: "20170123120000",
+            posted_date: ~D[2017-01-23],
             type: "DEBIT"
           },
           %{
             amount: 372.07,
-            description: "BUYING ALL THE THINGS",
             fit_id: "4614806509201701201",
             generic_type: "CREDIT",
             memo: "#YOLO",
+            name: "BUYING ALL THE THINGS",
             positive_amount: 372.07,
-            posted_on: "20170120120000",
+            posted_date: ~D[2017-01-20],
             type: "CREDIT"
           }
         ],
@@ -57,7 +57,7 @@ defmodule OfexTest do
       credit_card_account: %{
         account_number: "000012345678910",
         balance: -304.0,
-        balance_date: "20170206120000",
+        balance_date: ~D[2017-02-06],
         currency: "USD",
         positive_balance: 304.0,
         request_id: "0",
@@ -66,32 +66,32 @@ defmodule OfexTest do
         transactions: [
           %{
             amount: 87.4,
-            description: "ONLINE BANKING PAYMENT PAYPOINT",
             fit_id: "4489153042781763450170106002711",
             generic_type: "CREDIT",
             memo: "",
+            name: "ONLINE BANKING PAYMENT PAYPOINT",
             positive_amount: 87.4,
-            posted_on: "20170106120000",
+            posted_date: ~D[2017-01-06],
             type: "CREDIT"
           },
           %{
             amount: -137.87,
-            description: "CRAZY FUN EVENT CENTER",
             fit_id: "448915304272642016122920161229002531",
             generic_type: "DEBIT",
             memo: "",
+            name: "CRAZY FUN EVENT CENTER",
             positive_amount: 137.87,
-            posted_on: "20161229120000",
+            posted_date: ~D[2016-12-29],
             type: "DEBIT"
           },
           %{
             amount: 105.51,
-            description: "ONLINE BANKING PAYMENT PAYPOINT",
             fit_id: "44891530427817642016120987561209002711",
             generic_type: "CREDIT",
             memo: "",
+            name: "ONLINE BANKING PAYMENT PAYPOINT",
             positive_amount: 105.51,
-            posted_on: "20161209120000",
+            posted_date: ~D[2016-12-09],
             type: "CREDIT"
           }
         ],

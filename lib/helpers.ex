@@ -6,6 +6,14 @@ defmodule Ofex.Helpers do
     end
   end
 
+  def string_to_date(nil), do: nil
+  def string_to_date(date_str) do
+     case Timex.parse(date_str, "%Y%m%d%I%M%S", :strftime) do
+       {:ok, naive_date} -> NaiveDateTime.to_date(naive_date)
+       {:error, _reason} -> nil
+     end
+  end
+
   def string_to_float(nil), do: nil
   def string_to_float(""), do: nil
   def string_to_float(str) do
