@@ -11,6 +11,7 @@ defmodule OfexTest do
         balance: 1000001.0,
         balance_date: ~D[2017-01-27],
         currency: "USD",
+        generic_type: "CHECKING",
         positive_balance: 1000001.0,
         request_id: "0",
         routing_number: "019283745",
