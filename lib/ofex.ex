@@ -1,6 +1,7 @@
 defmodule Ofex do
-  alias Ofex.{BankAccount, InvalidData, Signon}
+  alias Ofex.{BankAccount, CreditCardAccount, InvalidData, Signon}
   import SweetXml
+  require Logger
 
   # @moduledoc """
   # Documentation for Ofex.
@@ -28,6 +29,11 @@ defmodule Ofex do
 
   defp parse_message_set("SIGNONMSGSRSV1", message_set), do: Signon.create(message_set)
   defp parse_message_set("BANKMSGSRSV1", message_set), do: BankAccount.create(message_set)
+  defp parse_message_set("CREDITCARDMSGSRSV1", message_set), do: CreditCardAccount.create(message_set)
+  defp parse_message_set(message_set_name, message_set) do
+    Logger.warn("Skipping unsupported message set: #{message_set_name}")
+    {message_set_name, message_set}
+  end
 
   # TODO: Add more strict checking here
   # TODO: Add support for QFX files as well
