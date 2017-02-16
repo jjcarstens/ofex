@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<?OFX OFXHEADER="200" VERSION="200" SECURITY="NONE" OLDFILEUID="NONE" NEWFILEUID="NONE"?>
+
+<OFX>
+    <SIGNONMSGSRSV1>
+        <SONRS>
+            <STATUS>
+                <CODE>0</CODE>
+                <SEVERITY>INFO</SEVERITY>
+            </STATUS>
+            <DTSERVER>20170206130655.224[-5:EST]</DTSERVER>
+            <LANGUAGE>ENG</LANGUAGE>
+            <FI>
+                <ORG>PNC</ORG>
+            </FI>
+        </SONRS>
+    </SIGNONMSGSRSV1>
+    <CREDITCARDMSGSRSV1>
+        <CCSTMTTRNRS>
+            <TRNUID>0</TRNUID>
+            <STATUS>
+                <CODE>0</CODE>
+                <SEVERITY>INFO</SEVERITY>
+            </STATUS>
+            <CCSTMTRS>
+                <CURDEF>USD</CURDEF>
+                <CCACCTFROM>
+                    <ACCTID>000012345678910</ACCTID>
+                </CCACCTFROM>
+                <BANKTRANLIST>
+                    <DTSTART>19700101120000</DTSTART>
+                    <DTEND>20170206120000</DTEND>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT</TRNTYPE>
+                        <DTPOSTED>20170106120000</DTPOSTED>
+                        <DTUSER>20170106120000</DTUSER>
+                        <TRNAMT>87.4</TRNAMT>
+                        <FITID>4489153042781763450170106002711</FITID>
+                        <NAME>ONLINE BANKING PAYMENT PAYPOINT</NAME>
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT</TRNTYPE>
+                        <DTPOSTED>20161229120000</DTPOSTED>
+                        <DTUSER>20161229120000</DTUSER>
+                        <TRNAMT>-137.87</TRNAMT>
+                        <FITID>448915304272642016122920161229002531</FITID>
+                        <NAME>CRAZY FUN EVENT CENTER</NAME>
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT</TRNTYPE>
+                        <DTPOSTED>20161209120000</DTPOSTED>
+                        <DTUSER>20161209120000</DTUSER>
+                        <TRNAMT>105.51</TRNAMT>
+                        <FITID>44891530427817642016120987561209002711</FITID>
+                        <NAME>ONLINE BANKING PAYMENT PAYPOINT</NAME>
+                    </STMTTRN>
+                </BANKTRANLIST>
+                <LEDGERBAL>
+                    <BALAMT>-304.0</BALAMT>
+                    <DTASOF>20170206120000</DTASOF>
+                </LEDGERBAL>
+            </CCSTMTRS>
+        </CCSTMTTRNRS>
+    </CREDITCARDMSGSRSV1>
+</OFX>

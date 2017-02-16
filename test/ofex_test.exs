@@ -2,7 +2,7 @@ defmodule OfexTest do
   use ExUnit.Case, async: true
   doctest Ofex
 
-  test "can parse checking accounts" do
+  test "can parse banking accounts" do
     ofx_raw = File.read!("test/fixtures/banking_account.ofx")
     result = Ofex.parse(ofx_raw)
     assert result == %{
@@ -42,6 +42,63 @@ defmodule OfexTest do
       },
       signon: %{
         financial_institution: "Galactic CU",
+        language: "ENG",
+        status_code: "0",
+        status_severity: "INFO"
+      }
+    }
+  end
+
+  test "can parse credit card accounts" do
+    ofx_raw = File.read!("test/fixtures/credit_card_response.ofx")
+    result = Ofex.parse(ofx_raw)
+
+    assert result == %{
+      credit_card_account: %{
+        account_number: "000012345678910",
+        balance: -304.0,
+        balance_date: "20170206120000",
+        currency: "USD",
+        positive_balance: 304.0,
+        request_id: "0",
+        status_code: "0",
+        status_severity: "INFO",
+        transactions: [
+          %{
+            amount: 87.4,
+            description: "ONLINE BANKING PAYMENT PAYPOINT",
+            fit_id: "4489153042781763450170106002711",
+            generic_type: "CREDIT",
+            memo: "",
+            positive_amount: 87.4,
+            posted_on: "20170106120000",
+            type: "CREDIT"
+          },
+          %{
+            amount: -137.87,
+            description: "CRAZY FUN EVENT CENTER",
+            fit_id: "448915304272642016122920161229002531",
+            generic_type: "DEBIT",
+            memo: "",
+            positive_amount: 137.87,
+            posted_on: "20161229120000",
+            type: "DEBIT"
+          },
+          %{
+            amount: 105.51,
+            description: "ONLINE BANKING PAYMENT PAYPOINT",
+            fit_id: "44891530427817642016120987561209002711",
+            generic_type: "CREDIT",
+            memo: "",
+            positive_amount: 105.51,
+            posted_on: "20161209120000",
+            type: "CREDIT"
+          }
+        ],
+        type: "CREDIT_CARD"
+      },
+      signon: %{
+        financial_institution: "PNC",
         language: "ENG",
         status_code: "0",
         status_severity: "INFO"
