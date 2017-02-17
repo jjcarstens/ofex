@@ -28,7 +28,7 @@ defmodule Ofex.Mixfile do
   defp deps do
     [
       {:credo, ">= 0.0.0", only: [:dev, :test]},
-      {:ex_doc, "~> 0.14", only: :dev},
+      {:ex_doc, "~> 0.14", only: :dev, runtime: false},
       {:sweet_xml, "~> 0.6"},
       {:timex, "~> 3.0"},
     ]
