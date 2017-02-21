@@ -86,9 +86,9 @@ defmodule Ofex.BankAccount do
                 account_number: ~x"./STMTRS/BANKACCTFROM/ACCTID/text()"s,
                 type: ~x"./STMTRS/BANKACCTFROM/ACCTTYPE/text()"s,
                 generic_type: ~x"./STMTRS/BANKACCTFROM/ACCTTYPE/text()"s |> transform_by(&generic_type_from_type/1),
-                transactions: ~x"./STMTRS/BANKTRANLIST/STMTTRN"l |> transform_by(&parse_transactions(&1)),
-                balance: ~x"./STMTRS/LEDGERBAL/BALAMT/text()"f,
-                positive_balance: ~x"./STMTRS/LEDGERBAL/BALAMT/text()"s |> transform_by(&string_to_float/1),
+                transactions: ~x"./STMTRS/BANKTRANLIST/STMTTRN"l |> transform_by(&parse_transactions/1),
+                balance: ~x"./STMTRS/LEDGERBAL/BALAMT/text()"s |> transform_by(&string_to_float/1),
+                positive_balance: ~x"./STMTRS/LEDGERBAL/BALAMT/text()"s |> transform_by(&convert_to_positive_float/1),
                 balance_date: ~x"./STMTRS/LEDGERBAL/DTASOF/text()"s |> transform_by(&string_to_date/1),
               )
     {:bank_account, account}

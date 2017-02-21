@@ -10,9 +10,9 @@ defmodule Ofex.CreditCardAccount do
                 status_severity: ~x"./STATUS/SEVERITY/text()"s,
                 currency: ~x"./CCSTMTRS/CURDEF/text()"s,
                 account_number: ~x"./CCSTMTRS/CCACCTFROM/ACCTID/text()"s,
-                transactions: ~x"./CCSTMTRS/BANKTRANLIST/STMTTRN"l |> transform_by(&parse_transactions(&1)),
-                balance: ~x"./CCSTMTRS/LEDGERBAL/BALAMT/text()"f,
-                positive_balance: ~x"./CCSTMTRS/LEDGERBAL/BALAMT/text()"s |> transform_by(&string_to_float/1),
+                transactions: ~x"./CCSTMTRS/BANKTRANLIST/STMTTRN"l |> transform_by(&parse_transactions/1),
+                balance: ~x"./CCSTMTRS/LEDGERBAL/BALAMT/text()"s |> transform_by(&string_to_float/1),
+                positive_balance: ~x"./CCSTMTRS/LEDGERBAL/BALAMT/text()"s |> transform_by(&convert_to_positive_float/1),
                 balance_date: ~x"./CCSTMTRS/LEDGERBAL/DTASOF/text()"s |> transform_by(&string_to_date/1),
               ) |> Map.put(:type, "CREDIT_CARD")
     {:credit_card_account, account}

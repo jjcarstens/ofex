@@ -1,10 +1,8 @@
 defmodule Ofex.Helpers do
-  defp add_decimal_if_needed(str) do
-    case String.contains?(str, ".") do
-      true -> str
-      false -> "#{str}.0"
-    end
-  end
+  def convert_to_positive_float(num) when is_float(num), do: Float.to_string(num) |> String.replace("-", "") |> string_to_float
+  def convert_to_positive_float(num) when is_integer(num), do: Integer.to_string(num) |> String.replace("-", "") |> string_to_float
+  def convert_to_positive_float(num) when is_bitstring(num), do: String.replace(num, "-", "") |> string_to_float
+  def convert_to_positive_float(_), do: nil
 
   def string_to_date(nil), do: nil
   def string_to_date(date_str) do
@@ -17,7 +15,8 @@ defmodule Ofex.Helpers do
   def string_to_float(nil), do: nil
   def string_to_float(""), do: nil
   def string_to_float(str) do
-    [float_string] = Regex.run(~r/[\d,]+\.?\d*/, str)
-    float_string |> add_decimal_if_needed |> String.replace(",","") |> String.to_float
+    [float_string] = Regex.run(~r/-{0,1}[\d,]+\.?\d*/, str)
+    {float, _} = float_string |> String.replace(",","") |> Float.parse
+    float
   end
 end
