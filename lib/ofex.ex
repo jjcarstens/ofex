@@ -55,6 +55,13 @@ defmodule Ofex do
     end
   end
 
+  defp cleanup_whitespace(ofx_data) do
+    ofx_data
+    |> String.replace(~r/>\s+</m, "><")
+    |> String.replace(~r/\s+</m, "<")
+    |> String.replace(~r/>\s+/m, ">")
+  end
+
   defp parse_message_set("SIGNONMSGSRSV1", message_set), do: Signon.create(message_set)
   defp parse_message_set("BANKMSGSRSV1", message_set), do: BankAccount.create(message_set)
   defp parse_message_set("CREDITCARDMSGSRSV1", message_set), do: CreditCardAccount.create(message_set)
@@ -63,11 +70,32 @@ defmodule Ofex do
     {message_set_name, message_set}
   end
 
-  # TODO: Add more strict checking here
-  # TODO: Add support for QFX files as well
+  defp prepare_and_parse_ofx_data(ofx_data) do
+    ofx_data
+    |> remove_headers
+    |> cleanup_whitespace
+    |> validate_or_write_close_tags
+    |> SweetXml.parse
+  end
+
+  defp remove_headers(ofx_data) do
+    [_headers | tail] = String.split(ofx_data, ~r/<OFX>/, include_captures: true)
+    Enum.join(tail)
+  end
+
+  defp validate_or_write_close_tags(ofx_data) do
+    unclosed_tags = Regex.scan(~r/<(\w+|\w+.\w+)>[^<]+/, ofx_data, capture: :all_but_first)
+                    |> Stream.concat
+                    |> Stream.uniq
+                    |> Stream.reject(&String.match?(ofx_data, ~r/<#{&1}>([^<]+)<\/#{&1}>/))
+                    |> Enum.join("|")
+
+    String.replace(ofx_data, ~r/<(#{unclosed_tags})>([^<]+)/, "<\\1>\\2</\\1>")
+  end
+
   defp validate_ofx_data(data) when is_bitstring(data) do
     case String.match?(data, ~r/<OFX>.*<\/OFX>/is) do
-      true -> {:ok, SweetXml.parse(data)}
+      true -> {:ok, prepare_and_parse_ofx_data(data)}
       false -> {:error, "data provided cannot be parsed. May not be OFX format"}
     end
   end

@@ -1,0 +1,45 @@
+<OFX>
+  <SIGNONMSGSRSV1>
+    <SONRS>
+      <STATUS>
+        <CODE>0
+        <SEVERITY>INFO
+        <MESSAGE>Success
+      </STATUS>
+      <DTSERVER>20170227204445.000[0:GMT]
+      <LANGUAGE>ENG<DTPROFUP>20130323070000.000[0:GMT]
+      <DTACCTUP>20170227193204.000[0:GMT]
+      <FI>
+        <ORG>GalacticBank
+        <FID>104
+        </FI>
+    </SONRS>
+  </SIGNONMSGSRSV1>
+  <SIGNUPMSGSRSV1>
+    <ACCTINFOTRNRS>
+      <TRNUID>1133b-58d242aeac-32346
+      <STATUS>
+        <CODE>0
+        <SEVERITY>INFO
+        <MESSAGE>Success
+      </STATUS>
+      <ACCTINFORS>
+        <DTACCTUP>20170227193204.000[0:GMT]
+        <ACCTINFO>
+          <DESC>SOME CHECKING
+          <BANKACCTINFO>
+            <BANKACCTFROM>
+            <BANKID>123456789
+            <ACCTID>0987654321
+            <ACCTTYPE>CHECKING
+            </BANKACCTFROM>
+            <SUPTXDL>Y
+            <XFERSRC>Y
+            <XFERDEST>Y
+            <SVCSTATUS>ACTIVE
+          </BANKACCTINFO>
+        </ACCTINFO>
+      </ACCTINFORS>
+    </ACCTINFOTRNRS>
+  </SIGNUPMSGSRSV1>
+</OFX>

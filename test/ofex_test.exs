@@ -20,4 +20,17 @@ defmodule OfexTest do
     assert {:error, %Ofex.InvalidData{message: "data is not binary"}} = Ofex.parse([])
     assert {:error, %Ofex.InvalidData{message: "data is not binary"}} = Ofex.parse(fn(x) -> x end)
   end
+
+  test "can parse data with missing closing tags" do
+    ofx_raw = File.read!("test/fixtures/missing_closing_tags.ofx")
+    parsed = Ofex.parse(ofx_raw)
+    assert Map.has_key?(parsed, :signon)
+  end
+
+  test "can parse QFX data" do
+    ofx_raw = File.read!("test/fixtures/bank_account.qfx")
+    parsed = Ofex.parse(ofx_raw)
+    assert Map.has_key?(parsed, :bank_account)
+    assert Map.has_key?(parsed, :signon)
+  end
 end
