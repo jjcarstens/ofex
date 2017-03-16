@@ -77,20 +77,22 @@ defmodule Ofex.BankAccount do
   """
   @spec create(binary) :: {:bank_account, %{}}
   def create(ofx_data) do
-    account = xpath(ofx_data, ~x"STMTTRNRS",
-                request_id: ~x"./TRNUID/text()"s,
-                status_code: ~x"./STATUS/CODE/text()"s,
-                status_severity: ~x"./STATUS/SEVERITY/text()"s,
-                currency: ~x"./STMTRS/CURDEF/text()"s,
-                routing_number: ~x"./STMTRS/BANKACCTFROM/BANKID/text()"s,
-                account_number: ~x"./STMTRS/BANKACCTFROM/ACCTID/text()"s,
-                type: ~x"./STMTRS/BANKACCTFROM/ACCTTYPE/text()"s,
-                generic_type: ~x"./STMTRS/BANKACCTFROM/ACCTTYPE/text()"s |> transform_by(&generic_type_from_type/1),
-                transactions: ~x"./STMTRS/BANKTRANLIST/STMTTRN"l |> transform_by(&parse_transactions/1),
-                balance: ~x"./STMTRS/LEDGERBAL/BALAMT/text()"s |> transform_by(&string_to_float/1),
-                positive_balance: ~x"./STMTRS/LEDGERBAL/BALAMT/text()"s |> transform_by(&convert_to_positive_float/1),
-                balance_date: ~x"./STMTRS/LEDGERBAL/DTASOF/text()"s |> transform_by(&string_to_date/1),
-              )
+    account = %{
+      account_number: xpath(ofx_data, ~x"//ACCTID/text()"s),
+      balance: xpath(ofx_data, ~x"//BALAMT/text()"s) |> string_to_float,
+      balance_date: xpath(ofx_data, ~x"//DTASOF/text()"s) |> string_to_date,
+      currency: xpath(ofx_data, ~x"//CURDEF/text()"s),
+      generic_type: xpath(ofx_data, ~x"//ACCTTYPE/text()"s) |> generic_type_from_type,
+      name: xpath(ofx_data, ~x"//DESC/text()"s),
+      positive_balance: xpath(ofx_data, ~x"//BALAMT/text()"s) |> convert_to_positive_float,
+      request_id: xpath(ofx_data, ~x"//TRNUID/text()"s),
+      routing_number: xpath(ofx_data, ~x"//BANKID/text()"s),
+      status_code: xpath(ofx_data, ~x"//CODE/text()"s),
+      status_severity: xpath(ofx_data, ~x"//SEVERITY/text()"s),
+      transactions: xpath(ofx_data, ~x"//BANKTRANLIST/STMTTRN"l) |> parse_transactions,
+      type: xpath(ofx_data, ~x"//ACCTTYPE/text()"s),
+    }
+
     {:bank_account, account}
   end
 

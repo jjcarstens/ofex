@@ -6,9 +6,10 @@ defmodule Ofex.BankAccountTest do
   test "can parse banking account details" do
     %{bank_account: account} = Ofex.parse(@ofx_raw)
     %{transactions: transactions} = account
-    
+
     assert account == %{
       account_number: "00000000012345678910",
+      name: "",
       balance: 1000001.0,
       balance_date: ~D[2017-01-27],
       currency: "USD",
