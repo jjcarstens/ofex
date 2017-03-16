@@ -9,6 +9,7 @@ defmodule Ofex.CreditCardAccountTest do
 
     assert account == %{
       account_number: "000012345678910",
+      name: "",
       balance: -304.0,
       balance_date: ~D[2017-02-06],
       currency: "USD",

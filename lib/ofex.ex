@@ -1,5 +1,5 @@
 defmodule Ofex do
-  alias Ofex.{BankAccount, CreditCardAccount, InvalidData, Signon}
+  alias Ofex.{BankAccount, CreditCardAccount, InvalidData, Signon, SignonAccounts}
   import SweetXml
   require Logger
 
@@ -21,7 +21,7 @@ defmodule Ofex do
   ## Examples
 
       iex > Ofex.parse("<OFX>..actual_ofx_data...</OFX>")
-      %{bank_account: %{}, credit_card_account: %{}, signon: %{}}
+      %{bank_account: %{}, credit_card_account: %{}, signon: %{}, signon_accounts: [bank_account: %{}, ...]}
 
       iex> Ofex.parse("I am definitely not OFX")
       {:error, %Ofex.InvalidData{message: "data provided cannot be parsed. May not be OFX format", data: "I am definitely not OFX"}}
@@ -62,6 +62,7 @@ defmodule Ofex do
     |> String.replace(~r/>\s+/m, ">")
   end
 
+  defp parse_message_set("SIGNUPMSGSRSV1", message_set), do: SignonAccounts.create(message_set)
   defp parse_message_set("SIGNONMSGSRSV1", message_set), do: Signon.create(message_set)
   defp parse_message_set("BANKMSGSRSV1", message_set), do: BankAccount.create(message_set)
   defp parse_message_set("CREDITCARDMSGSRSV1", message_set), do: CreditCardAccount.create(message_set)
