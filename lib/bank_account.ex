@@ -75,7 +75,7 @@ defmodule Ofex.BankAccount do
   <!-- </BANKMSGSRSV1> -->
   ```
   """
-  @spec create(binary) :: {:bank_account, %{}}
+  @spec create(binary) :: {:account, %{}}
   def create(ofx_data) do
     account = %{
       account_number: xpath(ofx_data, ~x"//ACCTID/text()"s),
@@ -93,7 +93,7 @@ defmodule Ofex.BankAccount do
       type: xpath(ofx_data, ~x"//ACCTTYPE/text()"s),
     }
 
-    {:bank_account, account}
+    %{account: account}
   end
 
   defp generic_type_from_type("MONEYMRKT"), do: "SAVINGS"

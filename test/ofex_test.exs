@@ -4,8 +4,9 @@ defmodule OfexTest do
 
   test "validates data is OFX" do
     ofx_raw = File.read!("test/fixtures/banking_account.ofx")
-    parsed = Ofex.parse(ofx_raw)
-    assert is_map(parsed) == true
+    {:ok, %{signon: signon, accounts: accounts}} = Ofex.parse(ofx_raw)
+    assert is_list(accounts)
+    assert is_map(signon)
   end
 
   test "returns an error if data provided is binary but not OFX" do
@@ -23,14 +24,11 @@ defmodule OfexTest do
 
   test "can parse data with missing closing tags" do
     ofx_raw = File.read!("test/fixtures/missing_closing_tags.ofx")
-    parsed = Ofex.parse(ofx_raw)
-    assert Map.has_key?(parsed, :signon)
+    {:ok, %{signon: _signon}} = Ofex.parse(ofx_raw)
   end
 
   test "can parse QFX data" do
     ofx_raw = File.read!("test/fixtures/bank_account.qfx")
-    parsed = Ofex.parse(ofx_raw)
-    assert Map.has_key?(parsed, :bank_account)
-    assert Map.has_key?(parsed, :signon)
+    {:ok, %{accounts: [_bank_account]}} = Ofex.parse(ofx_raw)
   end
 end

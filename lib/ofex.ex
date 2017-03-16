@@ -11,9 +11,9 @@ defmodule Ofex do
   Validates and parses Open Financial Exchange (OFX) data.
 
   `data` will need to be supplied as a string. Each message set of the OFX data is parsed
-  separately and returned as a map with the following keys:
-    * `:bank_account` Banking Message Set Response (_BANKMSGSRS_) via `Ofex.BankAccount`
-    * `:credit_card_account` Credit Card Message Set Response (_CREDITCARDMSGSRS_) via `Ofex.CreditCardAccount`
+  separately and returned as map containing a `:signon` map and an `:accounts` list.
+    * `:accounts` Banking Message Set Response (_BANKMSGSRS_), (_CREDITCARDMSGSRS_), or (_SIGNUPMSGSR_)
+    via `Ofex.BankAccount` or `Ofex.CreditCardAccount`
     * `:signon` Signon Message Set Response (_SIGNONMSGSRS_) via `Ofex.Signon`
 
   Parsing errors or invalid data will return a tuple of `{:error, %Ofex.InvalidData{}}` (see `Ofex.InvalidData`)
@@ -21,12 +21,13 @@ defmodule Ofex do
   ## Examples
 
       iex > Ofex.parse("<OFX>..actual_ofx_data...</OFX>")
-      %{bank_account: %{}, credit_card_account: %{}, signon: %{}, signon_accounts: [bank_account: %{}, ...]}
+      %{signon: %{}, accounts: [%{}, %{}, %{}]}
 
       iex> Ofex.parse("I am definitely not OFX")
       {:error, %Ofex.InvalidData{message: "data provided cannot be parsed. May not be OFX format", data: "I am definitely not OFX"}}
 
   ### Only strings are allowed to be passed in for parsing
+
       iex> Ofex.parse(1234)
       {:error, %Ofex.InvalidData{message: "data is not binary", data: 1234}}
 
@@ -47,13 +48,20 @@ defmodule Ofex do
   def parse(data) do
     case validate_ofx_data(data) do
       {:ok, parsed_ofx} ->
-        parsed_ofx
+        result = parsed_ofx
         |> xpath(~x"//OFX/*[contains(name(),'MSGSRS')]"l)
         |> Enum.map(&parse_message_set(xpath(&1, ~x"name()"s), &1))
-        |> Map.new
+        |> List.flatten
+        |> Enum.reduce(%{signon: %{}, accounts: []}, &reduce_items_list/2)
+
+        {:ok, result}
       {:error, message} -> {:error, %InvalidData{message: message, data: data}}
     end
   end
+
+  defp reduce_items_list(%{signon: signon}, %{accounts: accounts}), do: %{signon: signon, accounts: accounts}
+  defp reduce_items_list(%{account: account}, %{accounts: accounts}=acc), do: Map.put(acc, :accounts, [account | accounts])
+  defp reduce_items_list(_, acc), do: acc
 
   defp cleanup_whitespace(ofx_data) do
     ofx_data

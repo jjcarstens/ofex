@@ -36,6 +36,6 @@ defmodule Ofex.Signon do
                        language: ~x"LANGUAGE/text()"s,
                        financial_institution: ~x"FI/ORG/text()"s,
                      )
-    {:signon, signon_details}
+    %{signon: signon_details}
   end
 end
