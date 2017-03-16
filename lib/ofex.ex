@@ -21,7 +21,7 @@ defmodule Ofex do
   ## Examples
 
       iex > Ofex.parse("<OFX>..actual_ofx_data...</OFX>")
-      %{bank_account: %{}, credit_card_account: %{}, signon: %{}}
+      %{bank_account: %{}, credit_card_account: %{}, signon: %{}, signon_accounts: [bank_account: %{}, ...]}
 
       iex> Ofex.parse("I am definitely not OFX")
       {:error, %Ofex.InvalidData{message: "data provided cannot be parsed. May not be OFX format", data: "I am definitely not OFX"}}
