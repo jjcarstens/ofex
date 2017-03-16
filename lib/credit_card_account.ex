@@ -4,17 +4,20 @@ defmodule Ofex.CreditCardAccount do
   import SweetXml
 
   def create(ofx_data) do
-    account = xpath(ofx_data, ~x"CCSTMTTRNRS",
-                request_id: ~x"./TRNUID/text()"s,
-                status_code: ~x"./STATUS/CODE/text()"s,
-                status_severity: ~x"./STATUS/SEVERITY/text()"s,
-                currency: ~x"./CCSTMTRS/CURDEF/text()"s,
-                account_number: ~x"./CCSTMTRS/CCACCTFROM/ACCTID/text()"s,
-                transactions: ~x"./CCSTMTRS/BANKTRANLIST/STMTTRN"l |> transform_by(&parse_transactions/1),
-                balance: ~x"./CCSTMTRS/LEDGERBAL/BALAMT/text()"s |> transform_by(&string_to_float/1),
-                positive_balance: ~x"./CCSTMTRS/LEDGERBAL/BALAMT/text()"s |> transform_by(&convert_to_positive_float/1),
-                balance_date: ~x"./CCSTMTRS/LEDGERBAL/DTASOF/text()"s |> transform_by(&string_to_date/1),
-              ) |> Map.put(:type, "CREDIT_CARD")
+    account = %{
+      request_id: xpath(ofx_data, ~x"//TRNUID/text()"s),
+      status_code: xpath(ofx_data, ~x"//CODE/text()"s),
+      status_severity: xpath(ofx_data, ~x"//SEVERITY/text()"s),
+      currency: xpath(ofx_data, ~x"//CURDEF/text()"s),
+      account_number: xpath(ofx_data, ~x"//ACCTID/text()"s),
+      name: xpath(ofx_data, ~x"//DESC/text()"s),
+      transactions: xpath(ofx_data, ~x"//BANKTRANLIST/STMTTRN"l) |> parse_transactions,
+      balance: xpath(ofx_data, ~x"//BALAMT/text()"s) |> string_to_float,
+      positive_balance: xpath(ofx_data, ~x"//BALAMT/text()"s) |> convert_to_positive_float,
+      balance_date: xpath(ofx_data, ~x"//DTASOF/text()"s) |> string_to_date,
+      type: "CREDIT_CARD"
+    }
+
     {:credit_card_account, account}
   end
 
