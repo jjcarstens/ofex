@@ -12,8 +12,7 @@ defmodule Ofex do
 
   `data` will need to be supplied as a string. Each message set of the OFX data is parsed
   separately and returned as map containing a `:signon` map and an `:accounts` list.
-    * `:accounts` Banking Message Set Response (_BANKMSGSRS_), (_CREDITCARDMSGSRS_), or (_SIGNUPMSGSR_)
-    via `Ofex.BankAccount` or `Ofex.CreditCardAccount`
+    * `:accounts` Message Set Response (_BANKMSGSRS_), (_CREDITCARDMSGSRS_), or (_SIGNUPMSGSR_) via `Ofex.BankAccount` or `Ofex.CreditCardAccount`
     * `:signon` Signon Message Set Response (_SIGNONMSGSRS_) via `Ofex.Signon`
 
   Parsing errors or invalid data will return a tuple of `{:error, %Ofex.InvalidData{}}` (see `Ofex.InvalidData`)
@@ -21,7 +20,7 @@ defmodule Ofex do
   ## Examples
 
       iex > Ofex.parse("<OFX>..actual_ofx_data...</OFX>")
-      %{signon: %{}, accounts: [%{}, %{}, %{}]}
+      %{signon: %{}, accounts: [%{}, %{}, ...}
 
       iex> Ofex.parse("I am definitely not OFX")
       {:error, %Ofex.InvalidData{message: "data provided cannot be parsed. May not be OFX format", data: "I am definitely not OFX"}}
