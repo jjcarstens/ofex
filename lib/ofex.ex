@@ -48,11 +48,10 @@ defmodule Ofex do
     case validate_ofx_data(data) do
       {:ok, parsed_ofx} ->
         result = parsed_ofx
-        |> xpath(~x"//OFX/*[contains(name(),'MSGSRS')]"l)
-        |> Enum.map(&parse_message_set(xpath(&1, ~x"name()"s), &1))
-        |> List.flatten
-        |> Enum.reduce(%{signon: %{}, accounts: []}, &accumulate_parsed_items/2)
-
+                 |> xpath(~x"//OFX/*[contains(name(),'MSGSRS')]"l)
+                 |> Enum.map(&parse_message_set(xpath(&1, ~x"name()"s), &1))
+                 |> List.flatten
+                 |> Enum.reduce(%{signon: %{}, accounts: []}, &accumulate_parsed_items/2)
         {:ok, result}
       {:error, message} -> {:error, %InvalidData{message: message, data: data}}
     end
