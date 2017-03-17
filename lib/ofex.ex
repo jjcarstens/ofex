@@ -51,16 +51,16 @@ defmodule Ofex do
         |> xpath(~x"//OFX/*[contains(name(),'MSGSRS')]"l)
         |> Enum.map(&parse_message_set(xpath(&1, ~x"name()"s), &1))
         |> List.flatten
-        |> Enum.reduce(%{signon: %{}, accounts: []}, &reduce_items_list/2)
+        |> Enum.reduce(%{signon: %{}, accounts: []}, &accumulate_parsed_items/2)
 
         {:ok, result}
       {:error, message} -> {:error, %InvalidData{message: message, data: data}}
     end
   end
 
-  defp reduce_items_list(%{signon: signon}, %{accounts: accounts}), do: %{signon: signon, accounts: accounts}
-  defp reduce_items_list(%{account: account}, %{accounts: accounts}=acc), do: Map.put(acc, :accounts, [account | accounts])
-  defp reduce_items_list(_, acc), do: acc
+  defp accumulate_parsed_items(%{signon: signon}, %{accounts: accounts}), do: %{signon: signon, accounts: accounts}
+  defp accumulate_parsed_items(%{account: account}, %{accounts: accounts}=acc), do: Map.put(acc, :accounts, [account | accounts])
+  defp accumulate_parsed_items(_, acc), do: acc
 
   defp cleanup_whitespace(ofx_data) do
     ofx_data
