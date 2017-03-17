@@ -3,6 +3,7 @@ defmodule Ofex.CreditCardAccount do
   import Ofex.Helpers
   import SweetXml
 
+  @spec create(binary) :: %{account: %{}}
   def create(ofx_data) do
     account = %{
       request_id: xpath(ofx_data, ~x"//TRNUID/text()"s),
@@ -18,7 +19,7 @@ defmodule Ofex.CreditCardAccount do
       type: "CREDIT_CARD"
     }
 
-    {:credit_card_account, account}
+    %{account: account}
   end
 
   defp parse_transactions(ofx_transactions) do

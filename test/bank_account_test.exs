@@ -4,7 +4,7 @@ defmodule Ofex.BankAccountTest do
   @ofx_raw File.read!("test/fixtures/banking_account.ofx")
 
   test "can parse banking account details" do
-    %{bank_account: account} = Ofex.parse(@ofx_raw)
+    {:ok, %{accounts: [account]}} = Ofex.parse(@ofx_raw)
     %{transactions: transactions} = account
 
     assert account == %{
@@ -25,7 +25,7 @@ defmodule Ofex.BankAccountTest do
   end
 
   test "can parse bank account transactions" do
-    %{bank_account: account} = Ofex.parse(@ofx_raw)
+    {:ok, %{accounts: [account]}} = Ofex.parse(@ofx_raw)
     %{transactions: transactions} = account
 
     assert transactions == [

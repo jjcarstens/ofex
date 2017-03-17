@@ -2,7 +2,7 @@ defmodule Ofex.SignonTest do
   use ExUnit.Case, async: true
 
   test "parses ofx doc signon response details" do
-    %{signon: signon} = Ofex.parse(File.read!("test/fixtures/banking_account.ofx"))
+    {:ok, %{signon: signon}} = Ofex.parse(File.read!("test/fixtures/banking_account.ofx"))
 
     assert signon == %{
       financial_institution: "Galactic CU",

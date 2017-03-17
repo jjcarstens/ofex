@@ -4,7 +4,7 @@ defmodule Ofex.CreditCardAccountTest do
   @ofx_raw File.read!("test/fixtures/credit_card_response.ofx")
 
   test "can parse credit card account details" do
-    %{credit_card_account: account} = Ofex.parse(@ofx_raw)
+    {:ok, %{accounts: [account]}} = Ofex.parse(@ofx_raw)
     %{transactions: transactions} = account
 
     assert account == %{
@@ -23,7 +23,7 @@ defmodule Ofex.CreditCardAccountTest do
   end
 
   test "can parse credit card transactions" do
-    %{credit_card_account: account} = Ofex.parse(@ofx_raw)
+    {:ok, %{accounts: [account]}} = Ofex.parse(@ofx_raw)
     %{transactions: transactions} = account
 
     assert transactions == [
