@@ -5,8 +5,10 @@ defmodule Ofex.Helpers do
   def convert_to_positive_float(_), do: nil
 
   def string_to_date(nil), do: nil
+  def string_to_date(date_str) when byte_size(date_str) < 14, do: nil
   def string_to_date(date_str) do
-     case Timex.parse(date_str, "%Y%m%d%I%M%S", :strftime) do
+    [date_str] = Regex.run(~r/^[[:digit:]]{14}/, date_str, capture: :first)
+     case Timex.parse(date_str, "%Y%m%d%H%M%S", :strftime) do
        {:ok, naive_date} -> NaiveDateTime.to_date(naive_date)
        {:error, _reason} -> nil
      end

@@ -18,6 +18,14 @@ defmodule Ofex.Helperstest do
     assert Ofex.Helpers.string_to_date("20160303120000") == ~D[2016-03-03]
   end
 
+  test "string_to_date parses ofx dates with milliseconds" do
+    assert Ofex.Helpers.string_to_date("20160303120000.000") == ~D[2016-03-03]
+  end
+
+  test "string_to_date parses ofx dates with timezone" do
+    assert Ofex.Helpers.string_to_date("20160303120000.000[-4:EDT]") == ~D[2016-03-03]
+  end
+
   test "string_to_date returns nil when unable to parse" do
     assert Ofex.Helpers.string_to_date(nil) == nil
     assert Ofex.Helpers.string_to_date("bad_date") == nil
