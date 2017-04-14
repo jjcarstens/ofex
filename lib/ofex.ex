@@ -46,15 +46,15 @@ defmodule Ofex do
   """
   def parse(data) do
     case validate_ofx_data(data) do
-      {:ok, parsed_ofx} ->
-        result = parsed_ofx
-                 |> xpath(~x"//OFX/*[contains(name(),'MSGSRS')]"l)
-                 |> Enum.map(&parse_message_set(xpath(&1, ~x"name()"s), &1))
-                 |> List.flatten
-                 |> Enum.reduce(%{signon: %{}, accounts: []}, &accumulate_parsed_items/2)
-        {:ok, result}
+      {:ok, parsed_ofx} -> {:ok, format_parsed_ofx_data(parsed_ofx)}
       {:error, message} -> {:error, %InvalidData{message: message, data: data}}
     end
+  end
+  
+  def parse!(data) do
+    data
+    |> prepare_and_parse_ofx_data
+    |> format_parsed_ofx_data
   end
 
   defp accumulate_parsed_items(%{signon: signon}, %{accounts: accounts}), do: %{signon: signon, accounts: accounts}
@@ -66,6 +66,14 @@ defmodule Ofex do
     |> String.replace(~r/>\s+</m, "><")
     |> String.replace(~r/\s+</m, "<")
     |> String.replace(~r/>\s+/m, ">")
+  end
+
+  defp format_parsed_ofx_data(parsed_ofx) do
+    parsed_ofx
+    |> xpath(~x"//OFX/*[contains(name(),'MSGSRS')]"l)
+    |> Enum.map(&parse_message_set(xpath(&1, ~x"name()"s), &1))
+    |> List.flatten
+    |> Enum.reduce(%{signon: %{}, accounts: []}, &accumulate_parsed_items/2)
   end
 
   defp parse_message_set("SIGNUPMSGSRSV1", message_set), do: SignonAccounts.create(message_set)
