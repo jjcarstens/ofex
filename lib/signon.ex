@@ -1,4 +1,5 @@
 defmodule Ofex.Signon do
+  import Ofex.Helpers
   import SweetXml
 
   @doc """
@@ -30,12 +31,19 @@ defmodule Ofex.Signon do
   """
   @spec create(binary) :: {:signon, %{}}
   def create(ofx_data) do
-    signon_details = xpath(ofx_data, ~x"SONRS",
-                       status_code: ~x"STATUS/CODE/text()"s,
-                       status_severity: ~x"STATUS/SEVERITY/text()"s,
-                       language: ~x"LANGUAGE/text()"s,
-                       financial_institution: ~x"FI/ORG/text()"s,
-                     )
-    %{signon: signon_details}
+    signon_details_map = ofx_data
+                         |> signon_details_attributes_list
+                         |> create_attribute_map
+
+    %{signon: signon_details_map}
+  end
+
+  defp signon_details_attributes_list(ofx_data) do
+    [
+      {:status_code, xpath(ofx_data, ~x"SONRS/STATUS/CODE/text()"s)},
+      {:status_severity, xpath(ofx_data, ~x"SONRS/STATUS/SEVERITY/text()"s)},
+      {:language, xpath(ofx_data, ~x"SONRS/LANGUAGE/text()"s)},
+      {:financial_institution, xpath(ofx_data, ~x"SONRS/FI/ORG/text()"s)},
+    ]
   end
 end

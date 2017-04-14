@@ -77,23 +77,29 @@ defmodule Ofex.BankAccount do
   """
   @spec create(binary) :: {:account, %{}}
   def create(ofx_data) do
-    account = %{
-      account_number: xpath(ofx_data, ~x"//ACCTID/text()"s),
-      balance: xpath(ofx_data, ~x"//BALAMT/text()"s) |> string_to_float,
-      balance_date: xpath(ofx_data, ~x"//DTASOF/text()"s) |> string_to_date,
-      currency: xpath(ofx_data, ~x"//CURDEF/text()"s),
-      generic_type: xpath(ofx_data, ~x"//ACCTTYPE/text()"s) |> generic_type_from_type,
-      name: xpath(ofx_data, ~x"//DESC/text()"s),
-      positive_balance: xpath(ofx_data, ~x"//BALAMT/text()"s) |> convert_to_positive_float,
-      request_id: xpath(ofx_data, ~x"//TRNUID/text()"s),
-      routing_number: xpath(ofx_data, ~x"//BANKID/text()"s),
-      status_code: xpath(ofx_data, ~x"//CODE/text()"s),
-      status_severity: xpath(ofx_data, ~x"//SEVERITY/text()"s),
-      transactions: xpath(ofx_data, ~x"//BANKTRANLIST/STMTTRN"l) |> parse_transactions,
-      type: xpath(ofx_data, ~x"//ACCTTYPE/text()"s),
-    }
+    bank_account_map = ofx_data
+                       |> bank_account_attributes_list
+                       |> create_attribute_map
 
-    %{account: account}
+    %{account: bank_account_map}
+  end
+
+  defp bank_account_attributes_list(ofx_data) do
+    [
+      {:account_number, xpath(ofx_data, ~x"//ACCTID/text()"s)},
+      {:balance, xpath(ofx_data, ~x"//BALAMT/text()"s)},
+      {:balance_date, xpath(ofx_data, ~x"//DTASOF/text()"s)},
+      {:currency, xpath(ofx_data, ~x"//CURDEF/text()"s)},
+      {:generic_type, xpath(ofx_data, ~x"//ACCTTYPE/text()"s) |> generic_type_from_type},
+      {:name, xpath(ofx_data, ~x"//DESC/text()"s)},
+      {:positive_balance, xpath(ofx_data, ~x"//BALAMT/text()"s)},
+      {:request_id, xpath(ofx_data, ~x"//TRNUID/text()"s)},
+      {:routing_number, xpath(ofx_data, ~x"//BANKID/text()"s)},
+      {:status_code, xpath(ofx_data, ~x"//CODE/text()"s)},
+      {:status_severity, xpath(ofx_data, ~x"//SEVERITY/text()"s)},
+      {:transactions, xpath(ofx_data, ~x"//BANKTRANLIST/STMTTRN"l) |> parse_transactions},
+      {:type, xpath(ofx_data, ~x"//ACCTTYPE/text()"s)},
+    ]
   end
 
   defp generic_type_from_type("MONEYMRKT"), do: "SAVINGS"

@@ -9,7 +9,7 @@ defmodule Ofex.CreditCardAccountTest do
 
     assert account == %{
       account_number: "000012345678910",
-      name: "",
+      name: nil,
       balance: -304.0,
       balance_date: ~D[2017-02-06],
       currency: "USD",
@@ -29,37 +29,37 @@ defmodule Ofex.CreditCardAccountTest do
     assert transactions == [
       %{
         amount: 87.4,
-        check_number: "",
+        check_number: nil,
         fit_id: "4489153042781763450170106002711",
         generic_type: "CREDIT",
-        memo: "",
+        memo: nil,
         name: "ONLINE BANKING PAYMENT PAYPOINT",
         positive_amount: 87.4,
-        check_number: "",
+        check_number: nil,
         posted_date: ~D[2017-01-06],
         type: "CREDIT"
       },
       %{
         amount: -137.87,
-        check_number: "",
+        check_number: nil,
         fit_id: "448915304272642016122920161229002531",
         generic_type: "DEBIT",
-        memo: "",
+        memo: nil,
         name: "CRAZY FUN EVENT CENTER",
         positive_amount: 137.87,
-        check_number: "",
+        check_number: nil,
         posted_date: ~D[2016-12-29],
         type: "DEBIT"
       },
       %{
         amount: 105.51,
-        check_number: "",
+        check_number: nil,
         fit_id: "44891530427817642016120987561209002711",
         generic_type: "CREDIT",
-        memo: "",
+        memo: nil,
         name: "ONLINE BANKING PAYMENT PAYPOINT",
         positive_amount: 105.51,
-        check_number: "",
+        check_number: nil,
         posted_date: ~D[2016-12-09],
         type: "CREDIT"
       }

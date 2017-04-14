@@ -4,6 +4,22 @@ defmodule Ofex.Helpers do
   def convert_to_positive_float(num) when is_bitstring(num), do: String.replace(num, "-", "") |> string_to_float
   def convert_to_positive_float(_), do: nil
 
+  def create_attribute_map(attribute_list) when is_list(attribute_list) do
+    Map.new(attribute_list, fn(attribute_tuple) -> format_attribute_value(attribute_tuple) end)
+  end
+  def create_attribute_map(attribute_map) when is_map(attribute_map) do
+    create_attribute_map(Map.to_list(attribute_map))
+  end
+
+  defp format_attribute_value({attr, ""}), do: {attr, nil}
+  defp format_attribute_value({:amount, amount_str}), do: {:amount, string_to_float(amount_str)}
+  defp format_attribute_value({:positive_amount, amount_str}), do: {:positive_amount, convert_to_positive_float(amount_str)}
+  defp format_attribute_value({:balance, balance_str}), do: {:balance, string_to_float(balance_str)}
+  defp format_attribute_value({:balance_date, date_str}), do: {:balance_date, string_to_date(date_str)}
+  defp format_attribute_value({:positive_balance, balance_str}), do: {:positive_balance, convert_to_positive_float(balance_str)}
+  defp format_attribute_value({:posted_date, date_str}), do: {:posted_date, string_to_date(date_str)}
+  defp format_attribute_value(attribute_tuple), do: attribute_tuple
+
   def string_to_date(nil), do: nil
   def string_to_date(date_str) when byte_size(date_str) < 14, do: nil
   def string_to_date(date_str) do

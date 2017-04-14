@@ -9,7 +9,7 @@ defmodule Ofex.BankAccountTest do
 
     assert account == %{
       account_number: "00000000012345678910",
-      name: "",
+      name: nil,
       balance: 1000001.0,
       balance_date: ~D[2017-01-27],
       currency: "USD",
@@ -31,25 +31,25 @@ defmodule Ofex.BankAccountTest do
     assert transactions == [
       %{
         amount: -7.0,
-        check_number: "",
+        check_number: nil,
         fit_id: "4614806509201701231",
         generic_type: "DEBIT",
         memo: "This is where a memo goes",
         name: "This is where the name is",
         positive_amount: 7.0,
-        check_number: "",
+        check_number: nil,
         posted_date: ~D[2017-01-23],
         type: "DEBIT"
       },
       %{
         amount: 372.07,
-        check_number: "",
+        check_number: nil,
         fit_id: "4614806509201701201",
         generic_type: "CREDIT",
         memo: "#YOLO",
         name: "BUYING ALL THE THINGS",
         positive_amount: 372.07,
-        check_number: "",
+        check_number: nil,
         posted_date: ~D[2017-01-20],
         type: "CREDIT"
       },
@@ -58,7 +58,7 @@ defmodule Ofex.BankAccountTest do
         check_number: "275",
         fit_id: "3113342346901135",
         generic_type: "DEBIT",
-        memo: "",
+        memo: nil,
         name: "CHECK 275 342857403598",
         positive_amount: 40.0,
         posted_date: ~D[2017-01-13],
