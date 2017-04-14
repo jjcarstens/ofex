@@ -1,5 +1,4 @@
 ## [0.2.1](https://github.com/jjcarstens/ofex/compare/v0.2.0...v0.2.1) - 2017-04-14
-## ⚠️  - This is a breaking change and may require change in your implementation! - ⚠️
 ### Added
 * empty or unmatched attributes now return `nil` instead of empty strings `""` - #6
 * added `Ofex.parse!` to skip data validation so you can parse like it's the wild west :cowboy_hat_face:
