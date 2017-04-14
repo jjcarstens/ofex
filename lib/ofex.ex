@@ -60,10 +60,6 @@ defmodule Ofex do
 
       iex > Ofex.parse!("<OFX>..actual_ofx_data...</OFX>")
       %{signon: %{}, accounts: [%{}, %{}, ...}
-
-      iex> Ofex.parse!("I am definitely not OFX")
-      [error] 3904- fatal: :expected_element_start_tag
-      ** (exit) {:fatal, {:expected_element_start_tag, {:file, :file_name_unknown}, {:line, 1}, {:col, 1}}}
   """
   def parse!(data) do
     data
