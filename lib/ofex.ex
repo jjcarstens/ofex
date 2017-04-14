@@ -20,7 +20,7 @@ defmodule Ofex do
   ## Examples
 
       iex > Ofex.parse("<OFX>..actual_ofx_data...</OFX>")
-      %{signon: %{}, accounts: [%{}, %{}, ...}
+      {:ok, %{signon: %{}, accounts: [%{}, %{}, ...}}
 
       iex> Ofex.parse("I am definitely not OFX")
       {:error, %Ofex.InvalidData{message: "data provided cannot be parsed. May not be OFX format", data: "I am definitely not OFX"}}
@@ -50,7 +50,21 @@ defmodule Ofex do
       {:error, message} -> {:error, %InvalidData{message: message, data: data}}
     end
   end
-  
+
+  @doc """
+  Same as `parse`, but does not validate data that is passed in and allows exceptions to be raised.
+
+  Returns the parsed data structure
+
+  ## Examples
+
+      iex > Ofex.parse!("<OFX>..actual_ofx_data...</OFX>")
+      %{signon: %{}, accounts: [%{}, %{}, ...}
+
+      iex> Ofex.parse!("I am definitely not OFX")
+      [error] 3904- fatal: :expected_element_start_tag
+      ** (exit) {:fatal, {:expected_element_start_tag, {:file, :file_name_unknown}, {:line, 1}, {:col, 1}}}
+  """
   def parse!(data) do
     data
     |> prepare_and_parse_ofx_data
