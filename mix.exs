@@ -7,7 +7,7 @@ defmodule Ofex.Mixfile do
       name: "Ofex",
       description: "A simple parser for Open Financial Exchange (OFX) data in elixir",
       version: "0.2.1",
-      elixir: "~> 1.4",
+      elixir: "~> 1.3",
       package: [
         maintainers: ["Jon Carstens"],
         licenses: ["MIT"],
