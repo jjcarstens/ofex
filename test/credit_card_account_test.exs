@@ -35,7 +35,6 @@ defmodule Ofex.CreditCardAccountTest do
         memo: nil,
         name: "ONLINE BANKING PAYMENT PAYPOINT",
         positive_amount: 87.4,
-        check_number: nil,
         posted_date: ~D[2017-01-06],
         type: "CREDIT"
       },
@@ -47,7 +46,6 @@ defmodule Ofex.CreditCardAccountTest do
         memo: nil,
         name: "CRAZY FUN EVENT CENTER",
         positive_amount: 137.87,
-        check_number: nil,
         posted_date: ~D[2016-12-29],
         type: "DEBIT"
       },
@@ -59,7 +57,6 @@ defmodule Ofex.CreditCardAccountTest do
         memo: nil,
         name: "ONLINE BANKING PAYMENT PAYPOINT",
         positive_amount: 105.51,
-        check_number: nil,
         posted_date: ~D[2016-12-09],
         type: "CREDIT"
       }

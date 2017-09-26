@@ -37,7 +37,6 @@ defmodule Ofex.BankAccountTest do
         memo: "This is where a memo goes",
         name: "This is where the name is",
         positive_amount: 7.0,
-        check_number: nil,
         posted_date: ~D[2017-01-23],
         type: "DEBIT"
       },
@@ -49,7 +48,6 @@ defmodule Ofex.BankAccountTest do
         memo: "#YOLO",
         name: "BUYING ALL THE THINGS",
         positive_amount: 372.07,
-        check_number: nil,
         posted_date: ~D[2017-01-20],
         type: "CREDIT"
       },
