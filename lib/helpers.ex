@@ -20,15 +20,16 @@ defmodule Ofex.Helpers do
   defp format_attribute_value({:posted_date, date_str}), do: {:posted_date, string_to_date(date_str)}
   defp format_attribute_value(attribute_tuple), do: attribute_tuple
 
-  def string_to_date(nil), do: nil
-  def string_to_date(date_str) when byte_size(date_str) < 14, do: nil
-  def string_to_date(date_str) do
-    [date_str] = Regex.run(~r/^[[:digit:]]{14}/, date_str, capture: :first)
-     case Timex.parse(date_str, "%Y%m%d%H%M%S", :strftime) do
+  def string_to_date(date_str) when byte_size(date_str) == 8, do: string_to_date(date_str, "%Y%m%d")
+  def string_to_date(date_str, strf_pattern \\ "%Y%m%d%H%M%S")
+  def string_to_date(date_str, strf_pattern) when byte_size(date_str) > 0 do
+    [cleansed_date_str] = Regex.run(~r/^[[:digit:]]{0,14}/, date_str, capture: :first)
+     case Timex.parse(cleansed_date_str, strf_pattern, :strftime) do
        {:ok, naive_date} -> NaiveDateTime.to_date(naive_date)
        {:error, _reason} -> nil
      end
   end
+  def string_to_date(_date_str, _strf_pattern), do: nil
 
   def string_to_float(nil), do: nil
   def string_to_float(""), do: nil
