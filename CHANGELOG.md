@@ -1,3 +1,7 @@
+## [0.2.2](https://github.com/jjcarstens/ofex/compare/v0.2.1...v0.2.2) - 2017-09-27
+### Added
+* Adds support for parsing dates that are %Y%m%d format
+
 ## [0.2.1](https://github.com/jjcarstens/ofex/compare/v0.2.0...v0.2.1) - 2017-04-14
 ### Added
 * empty or unmatched attributes now return `nil` instead of empty strings `""` - #6
