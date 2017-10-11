@@ -90,14 +90,14 @@ defmodule Ofex.BankAccount do
       {:balance, xpath(ofx_data, ~x"//BALAMT/text()"s)},
       {:balance_date, xpath(ofx_data, ~x"//DTASOF/text()"s)},
       {:currency, xpath(ofx_data, ~x"//CURDEF/text()"s)},
-      {:generic_type, xpath(ofx_data, ~x"//ACCTTYPE/text()"s) |> generic_type_from_type},
+      {:generic_type, ofx_data |> xpath(~x"//ACCTTYPE/text()"s) |> generic_type_from_type},
       {:name, xpath(ofx_data, ~x"//DESC/text()"s)},
       {:positive_balance, xpath(ofx_data, ~x"//BALAMT/text()"s)},
       {:request_id, xpath(ofx_data, ~x"//TRNUID/text()"s)},
       {:routing_number, xpath(ofx_data, ~x"//BANKID/text()"s)},
       {:status_code, xpath(ofx_data, ~x"//CODE/text()"s)},
       {:status_severity, xpath(ofx_data, ~x"//SEVERITY/text()"s)},
-      {:transactions, xpath(ofx_data, ~x"//BANKTRANLIST/STMTTRN"l) |> parse_transactions},
+      {:transactions, ofx_data |> xpath(~x"//BANKTRANLIST/STMTTRN"l) |> parse_transactions},
       {:type, xpath(ofx_data, ~x"//ACCTTYPE/text()"s)},
     ]
   end

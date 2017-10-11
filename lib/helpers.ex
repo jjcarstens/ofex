@@ -1,7 +1,7 @@
 defmodule Ofex.Helpers do
-  def convert_to_positive_float(num) when is_float(num), do: Float.to_string(num) |> String.replace("-", "") |> string_to_float
-  def convert_to_positive_float(num) when is_integer(num), do: Integer.to_string(num) |> String.replace("-", "") |> string_to_float
-  def convert_to_positive_float(num) when is_bitstring(num), do: String.replace(num, "-", "") |> string_to_float
+  def convert_to_positive_float(num) when is_float(num), do: num |> Float.to_string |> String.replace("-", "") |> string_to_float
+  def convert_to_positive_float(num) when is_integer(num), do: num |> Integer.to_string |> String.replace("-", "") |> string_to_float
+  def convert_to_positive_float(num) when is_bitstring(num), do: num |> String.replace("-", "") |> string_to_float
   def convert_to_positive_float(_), do: nil
 
   def create_attribute_map(attribute_list) when is_list(attribute_list) do
@@ -35,7 +35,7 @@ defmodule Ofex.Helpers do
   def string_to_float(""), do: nil
   def string_to_float(str) do
     [float_string] = Regex.run(~r/-{0,1}[\d,]+\.?\d*/, str)
-    {float, _} = float_string |> String.replace(",","") |> Float.parse
+    {float, _} = float_string |> String.replace(",", "") |> Float.parse
     float
   end
 end

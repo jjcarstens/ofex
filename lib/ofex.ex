@@ -68,7 +68,7 @@ defmodule Ofex do
   end
 
   defp accumulate_parsed_items(%{signon: signon}, %{accounts: accounts}), do: %{signon: signon, accounts: accounts}
-  defp accumulate_parsed_items(%{account: account}, %{accounts: accounts}=acc), do: Map.put(acc, :accounts, [account | accounts])
+  defp accumulate_parsed_items(%{account: account}, %{accounts: accounts} = acc), do: Map.put(acc, :accounts, [account | accounts])
   defp accumulate_parsed_items(_, acc), do: acc
 
   defp cleanup_whitespace(ofx_data) do

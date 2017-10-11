@@ -11,7 +11,7 @@ defmodule Ofex.Transaction do
   defp transaction_attributes_list(ofx_data) do
     [
       {:type, xpath(ofx_data, ~x"TRNTYPE/text()"s)},
-      {:generic_type, xpath(ofx_data, ~x"TRNAMT/text()"s) |> generic_type_from_amount},
+      {:generic_type, ofx_data |> xpath(~x"TRNAMT/text()"s) |> generic_type_from_amount},
       {:posted_date, xpath(ofx_data, ~x"DTPOSTED/text()"s)},
       {:amount, xpath(ofx_data, ~x"TRNAMT/text()"s)},
       {:positive_amount, xpath(ofx_data, ~x"TRNAMT/text()"s)},
