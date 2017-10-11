@@ -3,7 +3,7 @@ defmodule Ofex.SignonAccounts do
 
   @spec create(binary) :: [%{account: %{}}]
   def create(ofx_data) do
-    xpath(ofx_data, ~x"//ACCTINFO"l) |> Enum.map(&parse_account/1)
+    ofx_data |> xpath(~x"//ACCTINFO"l) |> Enum.map(&parse_account/1)
   end
 
   defp parse_account(account_data) do
