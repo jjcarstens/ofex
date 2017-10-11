@@ -77,9 +77,10 @@ defmodule Ofex.BankAccount do
   """
   @spec create(binary) :: {:account, %{}}
   def create(ofx_data) do
-    bank_account_map = ofx_data
-                       |> bank_account_attributes_list
-                       |> create_attribute_map
+    bank_account_map =
+      ofx_data
+      |> bank_account_attributes_list
+      |> create_attribute_map
 
     %{account: bank_account_map}
   end
@@ -98,7 +99,7 @@ defmodule Ofex.BankAccount do
       {:status_code, xpath(ofx_data, ~x"//CODE/text()"s)},
       {:status_severity, xpath(ofx_data, ~x"//SEVERITY/text()"s)},
       {:transactions, ofx_data |> xpath(~x"//BANKTRANLIST/STMTTRN"l) |> parse_transactions},
-      {:type, xpath(ofx_data, ~x"//ACCTTYPE/text()"s)},
+      {:type, xpath(ofx_data, ~x"//ACCTTYPE/text()"s)}
     ]
   end
 
