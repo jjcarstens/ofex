@@ -67,8 +67,14 @@ defmodule Ofex do
     |> format_parsed_ofx_data
   end
 
-  defp accumulate_parsed_items(%{signon: signon}, %{accounts: accounts}), do: %{signon: signon, accounts: accounts}
-  defp accumulate_parsed_items(%{account: account}, %{accounts: accounts} = acc), do: Map.put(acc, :accounts, [account | accounts])
+  defp accumulate_parsed_items(%{signon: signon}, %{accounts: accounts}) do
+    %{signon: signon, accounts: accounts}
+  end
+
+  defp accumulate_parsed_items(%{account: account}, %{accounts: accounts} = acc) do
+    Map.put(acc, :accounts, [account | accounts])
+  end
+
   defp accumulate_parsed_items(_, acc), do: acc
 
   defp cleanup_whitespace(ofx_data) do
@@ -82,7 +88,7 @@ defmodule Ofex do
     parsed_ofx
     |> xpath(~x"//OFX/*[contains(name(),'MSGSRS')]"l)
     |> Enum.map(&parse_message_set(xpath(&1, ~x"name()"s), &1))
-    |> List.flatten
+    |> List.flatten()
     |> Enum.reduce(%{signon: %{}, accounts: []}, &accumulate_parsed_items/2)
   end
 
@@ -90,6 +96,7 @@ defmodule Ofex do
   defp parse_message_set("SIGNONMSGSRSV1", message_set), do: Signon.create(message_set)
   defp parse_message_set("BANKMSGSRSV1", message_set), do: BankAccount.create(message_set)
   defp parse_message_set("CREDITCARDMSGSRSV1", message_set), do: CreditCardAccount.create(message_set)
+
   defp parse_message_set(message_set_name, message_set) do
     Logger.warn("Skipping unsupported message set: #{message_set_name}")
     {message_set_name, message_set}
@@ -100,7 +107,7 @@ defmodule Ofex do
     |> remove_headers
     |> cleanup_whitespace
     |> validate_or_write_close_tags
-    |> SweetXml.parse
+    |> SweetXml.parse()
   end
 
   defp remove_headers(ofx_data) do
@@ -109,11 +116,12 @@ defmodule Ofex do
   end
 
   defp validate_or_write_close_tags(ofx_data) do
-    unclosed_tags = Regex.scan(~r/<(\w+|\w+.\w+)>[^<]+/, ofx_data, capture: :all_but_first)
-                    |> Stream.concat
-                    |> Stream.uniq
-                    |> Stream.reject(&String.match?(ofx_data, ~r/<#{&1}>([^<]+)<\/#{&1}>/))
-                    |> Enum.join("|")
+    unclosed_tags =
+      Regex.scan(~r/<(\w+|\w+.\w+)>[^<]+/, ofx_data, capture: :all_but_first)
+      |> Stream.concat()
+      |> Stream.uniq()
+      |> Stream.reject(&String.match?(ofx_data, ~r/<#{&1}>([^<]+)<\/#{&1}>/))
+      |> Enum.join("|")
 
     String.replace(ofx_data, ~r/<(#{unclosed_tags})>([^<]+)/, "<\\1>\\2</\\1>")
   end
@@ -124,5 +132,6 @@ defmodule Ofex do
       false -> {:error, "data provided cannot be parsed. May not be OFX format"}
     end
   end
+
   defp validate_ofx_data(_), do: {:error, "data is not binary"}
 end
