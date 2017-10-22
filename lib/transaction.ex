@@ -2,6 +2,7 @@ defmodule Ofex.Transaction do
   import Ofex.Helpers
   import SweetXml
 
+  @spec create(tuple()) :: map()
   def create(ofx_data) do
     ofx_data
     |> transaction_attributes_list

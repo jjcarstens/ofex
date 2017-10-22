@@ -75,7 +75,7 @@ defmodule Ofex.BankAccount do
   <!-- </BANKMSGSRSV1> -->
   ```
   """
-  @spec create(binary) :: {:account, %{}}
+  @spec create(tuple()) :: %{account: map()}
   def create(ofx_data) do
     bank_account_map =
       ofx_data

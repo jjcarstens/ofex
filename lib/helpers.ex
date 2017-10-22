@@ -1,4 +1,5 @@
 defmodule Ofex.Helpers do
+  @spec convert_to_positive_float(number() | String.t) :: float()
   def convert_to_positive_float(num) when is_float(num) do
     num |> Float.to_string() |> String.replace("-", "") |> string_to_float
   end
@@ -13,6 +14,7 @@ defmodule Ofex.Helpers do
 
   def convert_to_positive_float(_), do: nil
 
+  @spec create_attribute_map(keyword(String.t) | map()) :: map()
   def create_attribute_map(attribute_list) when is_list(attribute_list) do
     Map.new(attribute_list, &format_attribute_value/1)
   end
@@ -21,6 +23,7 @@ defmodule Ofex.Helpers do
     create_attribute_map(Map.to_list(attribute_map))
   end
 
+  @spec format_attribute_value({atom(), String.t}) :: {atom(), String.t | Date.t | number()}
   defp format_attribute_value({attr, ""}), do: {attr, nil}
   defp format_attribute_value({:amount, amount_str}), do: {:amount, string_to_float(amount_str)}
 
@@ -54,6 +57,7 @@ defmodule Ofex.Helpers do
 
   defp format_attribute_value(attribute_tuple), do: attribute_tuple
 
+  @spec string_to_date(String.t) :: Date.t | nil
   def string_to_date(date_str) when byte_size(date_str) == 8 do
     string_to_date(date_str, "%Y%m%d")
   end
@@ -71,6 +75,7 @@ defmodule Ofex.Helpers do
 
   def string_to_date(_date_str, _strf_pattern), do: nil
 
+  @spec string_to_float(String.t) :: float()
   def string_to_float(nil), do: nil
   def string_to_float(""), do: nil
 

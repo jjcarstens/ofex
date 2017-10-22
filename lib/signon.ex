@@ -29,7 +29,7 @@ defmodule Ofex.Signon do
   <!-- </SIGNONMSGSRSV1> -->
   ```
   """
-  @spec create(binary) :: {:signon, %{}}
+  @spec create(tuple()) :: %{signon: map()}
   def create(ofx_data) do
     signon_details_map = ofx_data
                          |> signon_details_attributes_list
