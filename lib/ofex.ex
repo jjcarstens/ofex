@@ -44,6 +44,7 @@ defmodule Ofex do
       22:22:14.896 [warn]  Skipping unsupported message set: UNSUPPORTEDMSGSRSV1
       %{"UNSUPPORTEDMSGSRSV1" => "some_data"}
   """
+  @spec parse(String.t) :: {:ok, map()} | {:error, %Ofex.InvalidData{}}
   def parse(data) do
     case validate_ofx_data(data) do
       {:ok, parsed_ofx} -> {:ok, format_parsed_ofx_data(parsed_ofx)}
@@ -61,6 +62,7 @@ defmodule Ofex do
       iex > Ofex.parse!("<OFX>..actual_ofx_data...</OFX>")
       %{signon: %{}, accounts: [%{}, %{}, ...}
   """
+  @spec parse!(String.t) :: map()
   def parse!(data) do
     data
     |> prepare_and_parse_ofx_data

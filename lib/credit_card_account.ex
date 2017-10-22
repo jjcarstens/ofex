@@ -3,7 +3,7 @@ defmodule Ofex.CreditCardAccount do
   import Ofex.Helpers
   import SweetXml
 
-  @spec create(binary) :: %{account: %{}}
+  @spec create(tuple()) :: %{account: map()}
   def create(ofx_data) do
     credit_card_account_map = ofx_data
                               |> credit_card_attributes_list
