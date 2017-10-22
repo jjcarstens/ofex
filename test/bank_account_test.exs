@@ -20,6 +20,8 @@ defmodule Ofex.BankAccountTest do
       status_code: "0",
       status_severity: "INFO",
       transactions: transactions,
+      transactions_end_date: ~D[2017-01-27],
+      transactions_start_date: ~D[1970-01-01],
       type: "CHECKING"
     }
   end
