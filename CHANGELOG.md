@@ -1,3 +1,10 @@
+## [0.2.3](https://github.com/jjcarstens/ofex/compare/v0.2.2...v0.2.3) - 2017-10-22
+### Added
+* General code cleanup (without function change)
+  * Update some styling and formatting
+  * Adds dialyxir
+* adds `transactions_start_date` and `transactions_end_date` to account responses for verifying transactions date range returned by OFX server.
+
 ## [0.2.2](https://github.com/jjcarstens/ofex/compare/v0.2.1...v0.2.2) - 2017-09-27
 ### Added
 * Adds support for parsing dates that are %Y%m%d format

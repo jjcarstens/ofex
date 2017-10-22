@@ -6,7 +6,7 @@ defmodule Ofex.Mixfile do
       app: :ofex,
       name: "Ofex",
       description: "A simple parser for Open Financial Exchange (OFX) data in elixir",
-      version: "0.2.2",
+      version: "0.2.3",
       elixir: "~> 1.3",
       package: [
         maintainers: ["Jon Carstens"],
