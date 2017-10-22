@@ -44,6 +44,14 @@ defmodule Ofex.Helpers do
     {:posted_date, string_to_date(date_str)}
   end
 
+  defp format_attribute_value({:transactions_end_date, date_str}) do
+    {:transactions_end_date, string_to_date(date_str)}
+  end
+
+  defp format_attribute_value({:transactions_start_date, date_str}) do
+    {:transactions_start_date, string_to_date(date_str)}
+  end
+
   defp format_attribute_value(attribute_tuple), do: attribute_tuple
 
   def string_to_date(date_str) when byte_size(date_str) == 8 do

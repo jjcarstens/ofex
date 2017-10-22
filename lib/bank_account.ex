@@ -99,6 +99,8 @@ defmodule Ofex.BankAccount do
       {:status_code, xpath(ofx_data, ~x"//CODE/text()"s)},
       {:status_severity, xpath(ofx_data, ~x"//SEVERITY/text()"s)},
       {:transactions, ofx_data |> xpath(~x"//BANKTRANLIST/STMTTRN"l) |> parse_transactions},
+      {:transactions_end_date, xpath(ofx_data, ~x"//BANKTRANLIST/DTEND/text()"s)},
+      {:transactions_start_date, xpath(ofx_data, ~x"//BANKTRANLIST/DTSTART/text()"s)},
       {:type, xpath(ofx_data, ~x"//ACCTTYPE/text()"s)}
     ]
   end

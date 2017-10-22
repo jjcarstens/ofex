@@ -18,6 +18,8 @@ defmodule Ofex.CreditCardAccountTest do
       status_code: "0",
       status_severity: "INFO",
       transactions: transactions,
+      transactions_end_date: ~D[2017-02-06],
+      transactions_start_date: ~D[1970-01-01],
       type: "CREDIT_CARD"
     }
   end

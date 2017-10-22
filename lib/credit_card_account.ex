@@ -21,6 +21,8 @@ defmodule Ofex.CreditCardAccount do
       {:account_number, xpath(ofx_data, ~x"//ACCTID/text()"s)},
       {:name, xpath(ofx_data, ~x"//DESC/text()"s)},
       {:transactions, ofx_data |> xpath(~x"//BANKTRANLIST/STMTTRN"l) |> parse_transactions},
+      {:transactions_end_date, xpath(ofx_data, ~x"//BANKTRANLIST/DTEND/text()"s)},
+      {:transactions_start_date, xpath(ofx_data, ~x"//BANKTRANLIST/DTSTART/text()"s)},
       {:balance, xpath(ofx_data, ~x"//BALAMT/text()"s)},
       {:positive_balance, xpath(ofx_data, ~x"//BALAMT/text()"s)},
       {:balance_date, xpath(ofx_data, ~x"//DTASOF/text()"s)},
