@@ -1,4 +1,4 @@
-## [0.2.3](https://github.com/jjcarstens/ofex/compare/v0.2.3...v0.2.4) - 2018-09-17
+## [0.2.4](https://github.com/jjcarstens/ofex/compare/v0.2.3...v0.2.4) - 2018-09-17
 ### Added
 * Filters file for unsafe & (ampersand) and replaces with `&amp;` escape
 * Adjust `Ofex.parse/1` to handle `xmerl` failures with a catch and return an `{:error, %InvalidData{}}` tuple safely instead of just crashing
