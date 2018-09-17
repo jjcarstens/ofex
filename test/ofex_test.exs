@@ -48,4 +48,10 @@ defmodule OfexTest do
     ofx_raw = File.read!("test/fixtures/bank_account.qfx")
     %{accounts: [_bank_account]} = Ofex.parse!(ofx_raw)
   end
+
+  test "can parse file with unsafe &" do
+    ofx_raw = File.read!("test/fixtures/unsafe_ampersand.ofx")
+    {:ok, %{signon: signon}} = Ofex.parse(ofx_raw)
+    assert signon.financial_institution == "Whip & Whirl"
+  end
 end
