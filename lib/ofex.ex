@@ -46,9 +46,13 @@ defmodule Ofex do
   """
   @spec parse(String.t) :: {:ok, map()} | {:error, %Ofex.InvalidData{}}
   def parse(data) do
-    case validate_ofx_data(data) do
-      {:ok, parsed_ofx} -> {:ok, format_parsed_ofx_data(parsed_ofx)}
+    try do
+      validate_ofx_data(data)
+    catch
+      :exit, ex -> {:error, %InvalidData{message: inspect(ex), data: data}}
+    else
       {:error, message} -> {:error, %InvalidData{message: message, data: data}}
+      {:ok, parsed_ofx} -> {:ok, format_parsed_ofx_data(parsed_ofx)}
     end
   end
 
@@ -86,6 +90,12 @@ defmodule Ofex do
     |> String.replace(~r/>\s+/m, ">")
   end
 
+  defp escape_predefined_entities(ofx_data) do
+    # TODO: Add more entity replacements here
+    ofx_data
+    |> String.replace(~r/(?!&amp;)&/, "&amp;") # Replace unsafe & with &amp;
+  end
+
   defp format_parsed_ofx_data(parsed_ofx) do
     parsed_ofx
     |> xpath(~x"//OFX/*[contains(name(),'MSGSRS')]"l)
@@ -109,6 +119,7 @@ defmodule Ofex do
     |> remove_headers
     |> cleanup_whitespace
     |> validate_or_write_close_tags
+    |> escape_predefined_entities
     |> SweetXml.parse()
   end
 
