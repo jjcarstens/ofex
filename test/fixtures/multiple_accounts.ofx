@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<?OFX OFXHEADER="200" VERSION="200" SECURITY="NONE" OLDFILEUID="NONE" NEWFILEUID="NONE"?>
+
+<OFX>
+    <SIGNONMSGSRSV1>
+        <SONRS>
+            <STATUS>
+                <CODE>0</CODE>
+                <SEVERITY>INFO</SEVERITY>
+            </STATUS>
+            <DTSERVER>20170127110131.603[-5:EST]</DTSERVER>
+            <LANGUAGE>ENG</LANGUAGE>
+            <FI>
+              <ORG>Whip & Whirl</ORG>
+            </FI>
+        </SONRS>
+    </SIGNONMSGSRSV1>
+    <BANKMSGSRSV1>
+        <STMTTRNRS>
+            <TRNUID>0</TRNUID>
+            <STATUS>
+                <CODE>0</CODE>
+                <SEVERITY>INFO</SEVERITY>
+            </STATUS>
+            <STMTRS>
+                <CURDEF>USD</CURDEF>
+                <BANKACCTFROM>
+                    <BANKID>019283745</BANKID>
+                    <ACCTID>00000000012345678910</ACCTID>
+                    <ACCTTYPE>CHECKING</ACCTTYPE>
+                </BANKACCTFROM>
+                <BANKTRANLIST>
+                    <DTSTART>19700101120000</DTSTART>
+                    <DTEND>20170127120000</DTEND>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT</TRNTYPE>
+                        <DTPOSTED>20170123120000</DTPOSTED>
+                        <DTUSER>20170123120000</DTUSER>
+                        <TRNAMT>-7.0</TRNAMT>
+                        <FITID>4614806509201701231</FITID>
+                        <NAME>This is where the name is</NAME>
+                        <MEMO>This is where a memo goes</MEMO>
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT</TRNTYPE>
+                        <DTPOSTED>20170120120000</DTPOSTED>
+                        <DTUSER>20170120120000</DTUSER>
+                        <TRNAMT>372.07</TRNAMT>
+                        <FITID>4614806509201701201</FITID>
+                        <NAME>BUYING ALL THE THINGS</NAME>
+                        <MEMO>#YOLO</MEMO>
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CHECK</TRNTYPE>
+                        <DTPOSTED>20170113120000</DTPOSTED>
+                        <DTUSER>20170113120000</DTUSER>
+                        <TRNAMT>-40.0</TRNAMT>
+                        <FITID>3113342346901135</FITID>
+                        <CHECKNUM>275</CHECKNUM>
+                        <NAME>CHECK 275 342857403598</NAME>
+                    </STMTTRN>
+                </BANKTRANLIST>
+                <LEDGERBAL>
+                    <BALAMT>1000001.00</BALAMT>
+                    <DTASOF>20170127120000</DTASOF>
+                </LEDGERBAL>
+            </STMTRS>
+        </STMTTRNRS>
+        <STMTTRNRS>
+            <TRNUID>0</TRNUID>
+            <STATUS>
+                <CODE>0</CODE>
+                <SEVERITY>INFO</SEVERITY>
+            </STATUS>
+            <STMTRS>
+                <CURDEF>USD</CURDEF>
+                <BANKACCTFROM>
+                    <BANKID>019283745</BANKID>
+                    <ACCTID>0000000007539546821</ACCTID>
+                    <ACCTTYPE>CHECKING</ACCTTYPE>
+                </BANKACCTFROM>
+                <BANKTRANLIST>
+                    <DTSTART>19700101120000</DTSTART>
+                    <DTEND>20170127120000</DTEND>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT</TRNTYPE>
+                        <DTPOSTED>20170123120000</DTPOSTED>
+                        <DTUSER>20170123120000</DTUSER>
+                        <TRNAMT>-7.0</TRNAMT>
+                        <FITID>4614806509201701231</FITID>
+                        <NAME>This is where the name is</NAME>
+                        <MEMO>This is where a memo goes</MEMO>
+                    </STMTTRN>
+                </BANKTRANLIST>
+                <LEDGERBAL>
+                    <BALAMT>85263.00</BALAMT>
+                    <DTASOF>20170127120000</DTASOF>
+                </LEDGERBAL>
+            </STMTRS>
+        </STMTTRNRS>
+    </BANKMSGSRSV1>
+    <CREDITCARDMSGSRSV1>
+        <CCSTMTTRNRS>
+            <TRNUID>0</TRNUID>
+            <STATUS>
+                <CODE>0</CODE>
+                <SEVERITY>INFO</SEVERITY>
+            </STATUS>
+            <CCSTMTRS>
+                <CURDEF>USD</CURDEF>
+                <CCACCTFROM>
+                    <ACCTID>000012345678910</ACCTID>
+                </CCACCTFROM>
+                <BANKTRANLIST>
+                    <DTSTART>19700101120000</DTSTART>
+                    <DTEND>20170206120000</DTEND>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT</TRNTYPE>
+                        <DTPOSTED>20170106120000</DTPOSTED>
+                        <DTUSER>20170106120000</DTUSER>
+                        <TRNAMT>87.4</TRNAMT>
+                        <FITID>4489153042781763450170106002711</FITID>
+                        <NAME>ONLINE BANKING PAYMENT PAYPOINT</NAME>
+                    </STMTTRN>
+                </BANKTRANLIST>
+                <LEDGERBAL>
+                    <BALAMT>-304.0</BALAMT>
+                    <DTASOF>20170206120000</DTASOF>
+                </LEDGERBAL>
+            </CCSTMTRS>
+        </CCSTMTTRNRS>
+    </CREDITCARDMSGSRSV1>
+</OFX>

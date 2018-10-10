@@ -108,12 +108,12 @@ defmodule Ofex do
   defp parse_message_set("SIGNONMSGSRSV1", message_set), do: Signon.create(message_set)
   defp parse_message_set("BANKMSGSRSV1", message_set) do 
     message_set 
-    |> xpath(~x"//BANKMSGSRSV1/*[contains(name(), 'STMTTRNRS')]"l) 
+    |> xpath(~x"./STMTTRNRS"l) 
     |> Enum.map(&BankAccount.create(&1)) 
   end 
   defp parse_message_set("CREDITCARDMSGSRSV1", message_set) do 
     message_set 
-    |> xpath(~x"//CREDITCARDMSGSRSV1/*[contains(name(), 'CCSTMTTRNRS')]"l) 
+    |> xpath(~x"./CCSTMTTRNRS"l) 
     |> Enum.map(&CreditCardAccount.create(&1)) 
   end
 
