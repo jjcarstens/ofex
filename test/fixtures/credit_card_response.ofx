@@ -47,6 +47,27 @@
                         <FITID>448915304272642016122920161229002531</FITID>
                         <NAME>CRAZY FUN EVENT CENTER</NAME>
                     </STMTTRN>
+                </BANKTRANLIST>
+                <LEDGERBAL>
+                    <BALAMT>-304.0</BALAMT>
+                    <DTASOF>20170206120000</DTASOF>
+                </LEDGERBAL>
+            </CCSTMTRS>
+        </CCSTMTTRNRS>
+        <CCSTMTTRNRS>
+            <TRNUID>0</TRNUID>
+            <STATUS>
+                <CODE>0</CODE>
+                <SEVERITY>INFO</SEVERITY>
+            </STATUS>
+            <CCSTMTRS>
+                <CURDEF>USD</CURDEF>
+                <CCACCTFROM>
+                    <ACCTID>456712345678910</ACCTID>
+                </CCACCTFROM>
+                <BANKTRANLIST>
+                    <DTSTART>19700101120000</DTSTART>
+                    <DTEND>20170206120000</DTEND>
                     <STMTTRN>
                         <TRNTYPE>CREDIT</TRNTYPE>
                         <DTPOSTED>20161209120000</DTPOSTED>

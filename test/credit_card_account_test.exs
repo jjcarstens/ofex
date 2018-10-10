@@ -4,10 +4,27 @@ defmodule Ofex.CreditCardAccountTest do
   @ofx_raw File.read!("test/fixtures/credit_card_response.ofx")
 
   test "can parse credit card account details" do
-    {:ok, %{accounts: [account]}} = Ofex.parse(@ofx_raw)
-    %{transactions: transactions} = account
+    {:ok, %{accounts: [account1, account2]}} = Ofex.parse(@ofx_raw)
+    %{transactions: transactions1} = account1
+    %{transactions: transactions2} = account2
 
-    assert account == %{
+    assert account1 == %{
+      account_number: "456712345678910",
+      name: nil,
+      balance: -304.0,
+      balance_date: ~D[2017-02-06],
+      currency: "USD",
+      positive_balance: 304.0,
+      request_id: "0",
+      status_code: "0",
+      status_severity: "INFO",
+      transactions: transactions1,
+      transactions_end_date: ~D[2017-02-06],
+      transactions_start_date: ~D[1970-01-01],
+      type: "CREDIT_CARD"
+    }
+
+    assert account2 == %{
       account_number: "000012345678910",
       name: nil,
       balance: -304.0,
@@ -17,7 +34,7 @@ defmodule Ofex.CreditCardAccountTest do
       request_id: "0",
       status_code: "0",
       status_severity: "INFO",
-      transactions: transactions,
+      transactions: transactions2,
       transactions_end_date: ~D[2017-02-06],
       transactions_start_date: ~D[1970-01-01],
       type: "CREDIT_CARD"
@@ -25,10 +42,11 @@ defmodule Ofex.CreditCardAccountTest do
   end
 
   test "can parse credit card transactions" do
-    {:ok, %{accounts: [account]}} = Ofex.parse(@ofx_raw)
-    %{transactions: transactions} = account
+    {:ok, %{accounts: [account1, account2]}} = Ofex.parse(@ofx_raw)
+    %{transactions: transactions1} = account1
+    %{transactions: transactions2} = account2
 
-    assert transactions == [
+    assert transactions2 == [
       %{
         amount: 87.4,
         check_number: nil,
@@ -50,7 +68,10 @@ defmodule Ofex.CreditCardAccountTest do
         positive_amount: 137.87,
         posted_date: ~D[2016-12-29],
         type: "DEBIT"
-      },
+      }
+    ]
+
+    assert transactions1 = [
       %{
         amount: 105.51,
         check_number: nil,

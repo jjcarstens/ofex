@@ -51,6 +51,27 @@
                         <NAME>BUYING ALL THE THINGS</NAME>
                         <MEMO>#YOLO</MEMO>
                     </STMTTRN>
+                    </BANKTRANLIST>
+                <LEDGERBAL>
+                    <BALAMT>1000001.00</BALAMT>
+                    <DTASOF>20170127120000</DTASOF>
+                </LEDGERBAL>
+            </STMTRS>
+        </STMTTRNRS>
+        <STMTTRNRS>
+            <TRNUID>0</TRNUID>
+            <STATUS>
+                <CODE>0</CODE>
+                <SEVERITY>INFO</SEVERITY>
+            </STATUS>
+            <STMTRS>
+                <CURDEF>USD</CURDEF>
+                <BANKACCTFROM>
+                    <BANKID>019283745</BANKID>
+                    <ACCTID>00000000085245679130</ACCTID>
+                    <ACCTTYPE>CHECKING</ACCTTYPE>
+                </BANKACCTFROM>
+                <BANKTRANLIST>
                     <STMTTRN>
                         <TRNTYPE>CHECK</TRNTYPE>
                         <DTPOSTED>20170113120000</DTPOSTED>

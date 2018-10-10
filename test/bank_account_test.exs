@@ -4,11 +4,12 @@ defmodule Ofex.BankAccountTest do
   @ofx_raw File.read!("test/fixtures/banking_account.ofx")
 
   test "can parse banking account details" do
-    {:ok, %{accounts: [account]}} = Ofex.parse(@ofx_raw)
-    %{transactions: transactions} = account
+    {:ok, %{accounts: [account1, account2]}} = Ofex.parse(@ofx_raw)
+    %{transactions: transactions1} = account1
+    %{transactions: transactions2} = account2
 
-    assert account == %{
-      account_number: "00000000012345678910",
+    assert account1 == %{
+      account_number: "00000000085245679130",
       name: nil,
       balance: 1000001.0,
       balance_date: ~D[2017-01-27],
@@ -19,7 +20,25 @@ defmodule Ofex.BankAccountTest do
       routing_number: "019283745",
       status_code: "0",
       status_severity: "INFO",
-      transactions: transactions,
+      transactions: transactions1,
+      transactions_end_date: nil,
+      transactions_start_date: nil,
+      type: "CHECKING"
+    }
+  
+    assert account2 == %{
+      account_number: "00000000012345678910",
+      balance: 1000001.0, 
+      balance_date: ~D[2017-01-27], 
+      currency: "USD", 
+      generic_type: "CHECKING", 
+      name: nil,
+      positive_balance: 1000001.0, 
+      request_id: "0", 
+      routing_number: "019283745", 
+      status_code: "0", 
+      status_severity: "INFO", 
+      transactions: transactions2,
       transactions_end_date: ~D[2017-01-27],
       transactions_start_date: ~D[1970-01-01],
       type: "CHECKING"
@@ -27,10 +46,11 @@ defmodule Ofex.BankAccountTest do
   end
 
   test "can parse bank account transactions" do
-    {:ok, %{accounts: [account]}} = Ofex.parse(@ofx_raw)
-    %{transactions: transactions} = account
+    {:ok, %{accounts: [account1, account2]}} = Ofex.parse(@ofx_raw)
+    %{transactions: transactions1} = account1
+    %{transactions: transactions2} = account2
 
-    assert transactions == [
+    assert transactions2 == [
       %{
         amount: -7.0,
         check_number: nil,
@@ -52,7 +72,10 @@ defmodule Ofex.BankAccountTest do
         positive_amount: 372.07,
         posted_date: ~D[2017-01-20],
         type: "CREDIT"
-      },
+      }
+    ]
+
+    assert transactions1 == [
       %{
         amount: -40.0,
         check_number: "275",
