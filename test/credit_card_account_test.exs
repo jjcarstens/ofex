@@ -71,7 +71,7 @@ defmodule Ofex.CreditCardAccountTest do
       }
     ]
 
-    assert transactions1 = [
+    assert transactions1 == [
       %{
         amount: 105.51,
         check_number: nil,

@@ -31,22 +31,24 @@ defmodule OfexTest do
 
   test "can parse data with missing closing tags" do
     ofx_raw = File.read!("test/fixtures/missing_closing_tags.ofx")
-    {:ok, %{signon: _signon}} = Ofex.parse(ofx_raw)
+    assert {:ok, %{signon: _signon}} = Ofex.parse(ofx_raw)
   end
 
   test "can parse! data with missing closing tags" do
     ofx_raw = File.read!("test/fixtures/missing_closing_tags.ofx")
-    %{signon: _signon} = Ofex.parse!(ofx_raw)
+    assert %{signon: _signon} = Ofex.parse!(ofx_raw)
   end
 
   test "can parse QFX data" do
     ofx_raw = File.read!("test/fixtures/multiple_accounts.ofx")
-    {:ok, %{accounts: [_bank_account1, _bank_account2, _cc_account]}} = Ofex.parse(ofx_raw)
+    {:ok, %{accounts: accounts}} = Ofex.parse(ofx_raw)
+    assert length(accounts) == 3
   end
 
   test "can parse! QFX data" do
     ofx_raw = File.read!("test/fixtures/multiple_accounts.ofx")
-    %{accounts: [_bank_account1, _bank_account2, _cc_account]} = Ofex.parse!(ofx_raw)
+    %{accounts: accounts} = Ofex.parse!(ofx_raw)
+    assert length(accounts) == 3
   end
 
   test "can parse file with unsafe &" do
