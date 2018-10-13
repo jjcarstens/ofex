@@ -1,3 +1,8 @@
+## [0.2.5](https://github.com/jjcarstens/ofex/compare/v0.2.4...v0.2.5) - 2018-10-12
+### Added
+* Support parsing multiple accounts within single file. (thanks @nikhilmore54 !)
+* Update CI to test more elixir versions
+
 ## [0.2.4](https://github.com/jjcarstens/ofex/compare/v0.2.3...v0.2.4) - 2018-09-17
 ### Added
 * Filters file for unsafe & (ampersand) and replaces with `&amp;` escape
