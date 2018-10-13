@@ -106,8 +106,16 @@ defmodule Ofex do
 
   defp parse_message_set("SIGNUPMSGSRSV1", message_set), do: SignonAccounts.create(message_set)
   defp parse_message_set("SIGNONMSGSRSV1", message_set), do: Signon.create(message_set)
-  defp parse_message_set("BANKMSGSRSV1", message_set), do: BankAccount.create(message_set)
-  defp parse_message_set("CREDITCARDMSGSRSV1", message_set), do: CreditCardAccount.create(message_set)
+  defp parse_message_set("BANKMSGSRSV1", message_set) do 
+    message_set 
+    |> xpath(~x"./STMTTRNRS"l) 
+    |> Enum.map(&BankAccount.create(&1)) 
+  end 
+  defp parse_message_set("CREDITCARDMSGSRSV1", message_set) do 
+    message_set 
+    |> xpath(~x"./CCSTMTTRNRS"l) 
+    |> Enum.map(&CreditCardAccount.create(&1)) 
+  end
 
   defp parse_message_set(message_set_name, message_set) do
     Logger.warn("Skipping unsupported message set: #{message_set_name}")

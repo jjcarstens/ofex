@@ -40,13 +40,13 @@ defmodule OfexTest do
   end
 
   test "can parse QFX data" do
-    ofx_raw = File.read!("test/fixtures/bank_account.qfx")
-    {:ok, %{accounts: [_bank_account]}} = Ofex.parse(ofx_raw)
+    ofx_raw = File.read!("test/fixtures/multiple_accounts.ofx")
+    {:ok, %{accounts: [_bank_account1, _bank_account2, _cc_account]}} = Ofex.parse(ofx_raw)
   end
 
   test "can parse! QFX data" do
-    ofx_raw = File.read!("test/fixtures/bank_account.qfx")
-    %{accounts: [_bank_account]} = Ofex.parse!(ofx_raw)
+    ofx_raw = File.read!("test/fixtures/multiple_accounts.ofx")
+    %{accounts: [_bank_account1, _bank_account2, _cc_account]} = Ofex.parse!(ofx_raw)
   end
 
   test "can parse file with unsafe &" do
